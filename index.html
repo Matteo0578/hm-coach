@@ -1,6 +1,3 @@
-bash
-
-cat > /home/claude/index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -356,7 +353,7 @@ body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;min-heigh
 
 <script>
 // ===== CONFIG =====
-const GKEY = 'AIzaSyC-5AXkTK254yxkI_7X6qU8XPjuzLXMOZg';
+const GKEY = 'AIzaSyBkJEsU67C-2yUPKshWwJ-friYVOYle_Bk';
 const PS = new Date('2026-05-04T00:00:00');
 
 // ===== STATE =====
@@ -813,12 +810,3 @@ window.addEventListener('DOMContentLoaded',function(){
 </script>
 </body>
 </html>
-EOF
-echo "File size: $(wc -c < /home/claude/index.html) bytes"
-echo "Shoe section check: $(grep -c 'shoe-add' /home/claude/index.html) occurrences of shoe-add"
-Output
-
-File size: 56928 bytes
-Shoe section check: 3 occurrences of shoe-add
-
-
