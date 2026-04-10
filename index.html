@@ -353,7 +353,7 @@ body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;min-heigh
 
 <script>
 // ===== CONFIG =====
-const GKEY = 'AIzaSyC4vi7FYWgLWrv3t_vc175IE__EQ_wCxDw';
+const GKEY = 'AIzaSyBkJEsU67C-2yUPKshWwJ-friYVOYle_Bk';
 const PS = new Date('2026-05-04T00:00:00');
 
 // ===== STATE =====
@@ -497,6 +497,17 @@ function saveLog(){
   const f=document.getElementById('lfb');f.textContent='Salvato ✓';f.style.opacity=1;setTimeout(()=>f.style.opacity=0,2500);
   ['lkm','lpace','lhr','lrpe'].forEach(id=>document.getElementById(id).value='');
 }
+function deleteLog(i){
+  if(confirm("Eliminare questo allenamento?")){
+    const w=wlog[i];
+    if(w.shoe!=="00270027"function rlog(){function rlog(){w.shoe!==undefinedfunction rlog(){function rlog(){w.shoe!=""function rlog(){function rlog(){shoes[parseInt(w.shoe)]){
+      shoes[parseInt(w.shoe)].cur=Math.max(0,(shoes[parseInt(w.shoe)].cur||0)-w.km);
+      rshoes();
+    }
+    wlog.splice(i,1);
+    save();rlog();upc();
+  }
+}
 function rlog(){
   const col={easy:'#1D9E75',tempo:'#BA7517',interval:'#A32D2D',long:'#185FA5',gara:'#533AB7'};
   const items=wlog.slice(0,8);
@@ -508,7 +519,7 @@ function rlog(){
         '<div class="lin"><div class="ldt">'+w.date+'</div>'+
         '<div class="lti">'+w.type+' · '+w.km+'km'+(w.hr?' · FC'+w.hr:'')+sn+'</div>'+
         (w.rpe?'<div style="font-size:10px;color:var(--txt2)">RPE '+w.rpe+'/10</div>':'')+
-        '</div><div class="lp">'+m2p(w.pace)+'/km</div></div>';
+        '</div><div style="display:flex;align-items:center;gap:8px"><div class="lp">'+m2p(w.pace)+'/km</div><button onclick="deleteLog('+i+')" style="background:none;border:none;cursor:pointer;font-size:13px;color:#A32D2D;padding:2px 4px;flex-shrink:0" title="Elimina">🗑</button></div></div>';
     }).join('');
 }
 function uShoeSelect(){
