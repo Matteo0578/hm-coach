@@ -195,7 +195,13 @@ body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;min-heigh
 
 <!-- DIARIO -->
 <div class="pg" id="pg-log">
-  <div style="margin-bottom:14px"><div style="font-size:16px;font-weight:500">Diario allenamenti</div></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+  <div style="font-size:16px;font-weight:500">Diario allenamenti</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <span id="sync-status" style="font-size:11px;color:var(--gr);opacity:0;transition:opacity .5s"></span>
+    <button onclick="loadFromSheets()" style="background:var(--bl);color:#fff;border:none;padding:6px 12px;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer">☁ Sincronizza</button>
+  </div>
+</div>
   <div class="card"><div class="ct">Nuovo allenamento</div>
     <div class="lgf">
       <div class="lf"><label>Data</label><input type="date" id="ldate"></div>
@@ -354,6 +360,7 @@ body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;min-heigh
 <script>
 // ===== CONFIG =====
 const GKEY = 'AIzaSyC4vi7FYWgLWrv3t_vc175IE__EQ_wCxDw';
+const SYNC_URL = 'https://script.google.com/macros/s/AKfycbxKqDOzuXJl-VCTI_hdt1T_e3BpTaETC2o8_CEU8coJd2qH00qSi1_wDf73cTubIhV7IQ/exec';
 const PS = new Date('2026-05-04T00:00:00');
 
 // ===== STATE =====
@@ -375,6 +382,34 @@ function load(){
 }
 function save(){
   try{localStorage.setItem('hmc3_p',JSON.stringify(A));localStorage.setItem('hmc3_s',JSON.stringify(shoes));localStorage.setItem('hmc3_w',JSON.stringify(wlog));}catch(e){}
+  syncToSheets();
+}
+function syncToSheets(){
+  try{
+    const rows=wlog.map(w=>[w.date,w.type,w.km,w.pace,w.hr||'',w.rpe||'',w.shoe||'']);
+    fetch(SYNC_URL,{method:'POST',body:JSON.stringify({action:'save',data:rows})});
+  }catch(e){}
+}
+async function loadFromSheets(){
+  try{
+    const res=await fetch(SYNC_URL);
+    const data=await res.json();
+    if(data&&data.length>1){
+      const remote=data.map(r=>({date:r[0],type:r[1],km:parseFloat(r[2]),pace:parseFloat(r[3]),hr:parseInt(r[4])||0,rpe:parseInt(r[5])||0,shoe:r[6]||''})).filter(w=>w.date&&w.km);
+      if(remote.length>wlog.length){
+        wlog=remote;
+        try{localStorage.setItem('hmc3_w',JSON.stringify(wlog));}catch(e){}
+        rlog();upc();
+        showSyncStatus('✓ Dati sincronizzati da Google Sheets');
+      }
+    }
+  }catch(e){showSyncStatus('Sync non disponibile — dati locali');}
+}
+function showSyncStatus(msg){
+  let el=document.getElementById('sync-status');
+  if(!el)return;
+  el.textContent=msg;el.style.opacity=1;
+  setTimeout(()=>el.style.opacity=0,3000);
 }
 
 // ===== UTILS =====
@@ -823,6 +858,7 @@ window.addEventListener('DOMContentLoaded',function(){
   rlog();rshoes();
   SD('training',document.querySelector('.ddb.on'));
   initCharts();
+  loadFromSheets();
 });
 </script>
 </body>
