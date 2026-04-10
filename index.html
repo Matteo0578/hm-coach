@@ -353,7 +353,7 @@ body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;min-heigh
 
 <script>
 // ===== CONFIG =====
-const GKEY = 'AIzaSyBkJEsU67C-2yUPKshWwJ-friYVOYle_Bk';
+const GKEY = 'AIzaSyC4vi7FYWgLWrv3t_vc175IE__EQ_wCxDw';
 const PS = new Date('2026-05-04T00:00:00');
 
 // ===== STATE =====
@@ -498,13 +498,14 @@ function saveLog(){
   ['lkm','lpace','lhr','lrpe'].forEach(id=>document.getElementById(id).value='');
 }
 function deleteLog(i){
-  if(confirm("Eliminare questo allenamento?")){
-    const w=wlog[i];
-    if(w.shoe!=="00270027"function rlog(){function rlog(){w.shoe!==undefinedfunction rlog(){function rlog(){w.shoe!=""function rlog(){function rlog(){shoes[parseInt(w.shoe)]){
+  if(confirm('Eliminare questo allenamento?')){
+    const realIdx=wlog.indexOf(wlog.slice(0,8)[i]);
+    const w=wlog[realIdx];
+    if(w&&w.shoe!==''&&w.shoe!==undefined&&shoes[parseInt(w.shoe)]){
       shoes[parseInt(w.shoe)].cur=Math.max(0,(shoes[parseInt(w.shoe)].cur||0)-w.km);
       rshoes();
     }
-    wlog.splice(i,1);
+    if(realIdx>-1)wlog.splice(realIdx,1);
     save();rlog();upc();
   }
 }
@@ -513,13 +514,13 @@ function rlog(){
   const items=wlog.slice(0,8);
   document.getElementById('lhist').innerHTML=items.length===0
     ?'<div style="text-align:center;padding:20px;font-size:12px;color:var(--txt2)">Nessun allenamento registrato</div>'
-    :items.map(w=>{
+    :items.map((w,i)=>{
       const sn=w.shoe!==''&&shoes[parseInt(w.shoe)]?' · 👟 '+shoes[parseInt(w.shoe)].name:'';
       return '<div class="li"><div class="ld" style="background:'+(col[w.type]||'#888')+'"></div>'+
         '<div class="lin"><div class="ldt">'+w.date+'</div>'+
         '<div class="lti">'+w.type+' · '+w.km+'km'+(w.hr?' · FC'+w.hr:'')+sn+'</div>'+
         (w.rpe?'<div style="font-size:10px;color:var(--txt2)">RPE '+w.rpe+'/10</div>':'')+
-        '</div><div style="display:flex;align-items:center;gap:8px"><div class="lp">'+m2p(w.pace)+'/km</div><button onclick="deleteLog('+i+')" style="background:none;border:none;cursor:pointer;font-size:13px;color:#A32D2D;padding:2px 4px;flex-shrink:0" title="Elimina">🗑</button></div></div>';
+        '</div><div class="lp">'+m2p(w.pace)+'/km</div></div>';
     }).join('');
 }
 function uShoeSelect(){
