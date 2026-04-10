@@ -511,7 +511,7 @@ function deleteLog(i){
 }
 function rlog(){
   const col={easy:'#1D9E75',tempo:'#BA7517',interval:'#A32D2D',long:'#185FA5',gara:'#533AB7'};
-  const items=wlog.slice(0,8);
+  const items=wlog.slice(0,20);
   document.getElementById('lhist').innerHTML=items.length===0
     ?'<div style="text-align:center;padding:20px;font-size:12px;color:var(--txt2)">Nessun allenamento registrato</div>'
     :items.map((w,i)=>{
