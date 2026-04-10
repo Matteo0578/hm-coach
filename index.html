@@ -516,11 +516,16 @@ function rlog(){
     ?'<div style="text-align:center;padding:20px;font-size:12px;color:var(--txt2)">Nessun allenamento registrato</div>'
     :items.map((w,i)=>{
       const sn=w.shoe!==''&&shoes[parseInt(w.shoe)]?' · 👟 '+shoes[parseInt(w.shoe)].name:'';
-      return '<div class="li"><div class="ld" style="background:'+(col[w.type]||'#888')+'"></div>'+
-        '<div class="lin"><div class="ldt">'+w.date+'</div>'+
-        '<div class="lti">'+w.type+' · '+w.km+'km'+(w.hr?' · FC'+w.hr:'')+sn+'</div>'+
+      return '<div style="padding:10px 0;border-bottom:1px solid var(--border)">'+
+        '<div style="display:flex;align-items:center;gap:10px">'+
+        '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;background:'+(col[w.type]||'#888')+'"></div>'+
+        '<div style="flex:1"><div style="font-size:10px;color:var(--txt2)">'+w.date+'</div>'+
+        '<div style="font-size:12px;font-weight:500">'+w.type+' · '+w.km+'km'+(w.hr?' · FC'+w.hr:'')+sn+'</div>'+
         (w.rpe?'<div style="font-size:10px;color:var(--txt2)">RPE '+w.rpe+'/10</div>':'')+
-        '</div><div class="lp">'+m2p(w.pace)+'/km</div></div>';
+        '</div><div style="font-size:12px;font-weight:500;color:var(--or)">'+m2p(w.pace)+'/km</div></div>'+
+        '<div style="margin-top:6px;text-align:right">'+
+        '<button onclick="deleteLog('+i+')" style="background:#FCEBEB;border:1px solid rgba(163,45,45,.25);cursor:pointer;color:#A32D2D;font-size:11px;font-weight:500;padding:4px 12px;border-radius:6px">🗑 Elimina</button>'+
+        '</div></div>';
     }).join('');
 }
 function uShoeSelect(){
