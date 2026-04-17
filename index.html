@@ -215,7 +215,7 @@ document.getElementById('pianoContent').innerHTML = html + '</table>';
 function renderDiario(){
 const opts = hmc4_s.map(s=>`<option>${s.nome}</option>`).join('');
 document.getElementById('w_scarpa').innerHTML = opts;
-document.getElementById('diarioList').innerHTML = '<table><tr><th>Data</th><th>Tipo</th><th>Km</th><th>Passo</th><th>FC</th><th>RPE</th><th></tr>' + hmc4_w.slice(-20).reverse().map((w,i)=>`<tr><td>${w.data}</td><td>${w.tipo}</td><td>${w.km}</td><td>${w.passo}</td><td>${w.fc}</td><td>${w.rpe}</td><td><button class="danger" onclick="delWorkout(${hmc4_w.length-1-i})">X</button></td></tr>`).join('') + '</table>';
+document.getElementById('diarioList').innerHTML = '<table><tr><th>Data</th><th>Tipo</th><th>Km</th><th>Passo</th><th>FC</th><th>RPE</th><th></th></tr>' + hmc4_w.slice(-20).reverse().map((w,i)=>`<tr><td>${w.data}</td><td>${w.tipo}</td><td>${w.km}</td><td>${w.passo}</td><td>${w.fc}</td><td>${w.rpe}</td><td><button class="danger" onclick="delWorkout(${hmc4_w.length-1-i})">X</button></td></tr>`).join('') + '</table>';
 if(hmc4_w.length>0){new Chart(document.getElementById('chartPasso'), {type:'line',data:{labels:hmc4_w.slice(-10).map(w=>w.data),datasets:[{label:'Passo min/km',data:hmc4_w.slice(-10).map(w=>{const p=w.passo.split(':');return parseInt(p[0])+parseInt(p[1])/60}),borderColor:'#f59e0b',tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{reverse:true,ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}});}
 }
 function addWorkout(){
