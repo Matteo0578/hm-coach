@@ -1,133 +1,70 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HM Coach - 1h35'00"</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  <style>
-    * {margin:0;padding:0;box-sizing:border-box}
-    body {font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
-    .container {max-width:1400px;margin:0 auto;padding:20px}
-    header {background:linear-gradient(135deg,#1e40af,#3b82f6);padding:30px;border-radius:16px;margin-bottom:30px;box-shadow:0 10px 40px rgba(59,130,246,.3)}
-    h1 {font-size:2.5rem;margin-bottom:10px}
-    .subtitle {opacity:.9;font-size:1.1rem}
-    nav {display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
-    .tab {padding:12px 24px;background:#1e293b;border:none;color:#94a3b8;cursor:pointer;border-radius:8px;font-size:1rem;transition:all .3s}
-    .tab:hover {background:#334155;color:#fff}
-    .tab.active {background:#3b82f6;color:#fff}
-    .section {display:none;background:#1e293b;padding:30px;border-radius:16px;margin-bottom:20px}
-    .section.active {display:block}
-    .grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px}
-    .card {background:#0f172a;padding:20px;border-radius:12px;border:1px solid #334155}
-    .card h3 {color:#60a5fa;margin-bottom:15px;font-size:.9rem;text-transform:uppercase;letter-spacing:1px}
-    .metric {font-size:2.5rem;font-weight:bold;color:#fff;margin:10px 0}
-    .metric span {font-size:1rem;color:#94a3b8;font-weight:normal}
-    button {background:#3b82f6;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:1rem;transition:all .3s;margin:5px}
-    button:hover {background:#2563eb;transform:translateY(-2px)}
-    button.danger {background:#ef4444}
-    button.danger:hover {background:#dc2626}
-    button.success {background:#10b981}
-    button.success:hover {background:#059669}
-    input,select,textarea {width:100%;padding:12px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-size:1rem;margin:8px 0}
-    input:focus,select:focus,textarea:focus {outline:none;border-color:#3b82f6}
-    table {width:100%;border-collapse:collapse;margin-top:20px}
-    th,td {padding:12px;text-align:left;border-bottom:1px solid #334155}
-    th {background:#0f172a;color:#60a5fa;font-weight:600;text-transform:uppercase;font-size:.85rem}
-    tr:hover {background:#0f172a}
-    .chart-container {position:relative;height:300px;margin:20px 0}
-    .zone-bar {height:30px;border-radius:15px;margin:10px 0;display:flex;overflow:hidden}
-    .zone {display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600}
-    .z1 {background:#10b981} .z2 {background:#3b82f6} .z3 {background:#f59e0b} .z4 {background:#ef4444} .z5 {background:#991b1b}
-    .shoe-bar {height:24px;background:#334155;border-radius:12px;overflow:hidden;margin:10px 0}
-    .shoe-fill {height:100%;transition:width .5s,background .5s;display:flex;align-items:center;padding-left:10px;font-size:.85rem;font-weight:600}
-    .shoe-fill.green {background:#10b981} .shoe-fill.orange {background:#f59e0b} .shoe-fill.red {background:#ef4444}
-    .meal {background:#0f172a;padding:15px;border-radius:8px;margin:10px 0;border-left:4px solid #3b82f6}
-    .meal h4 {color:#60a5fa;margin-bottom:8px}
-    .macros {display:flex;gap:15px;font-size:.9rem;color:#94a3b8;margin-top:8px}
-    .countdown {font-size:3rem;text-align:center;color:#3b82f6;font-weight:bold;margin:20px 0}
-    .chat-box {background:#0f172a;border:1px solid #334155;border-radius:12px;padding:20px;height:400px;overflow-y:auto;margin-bottom:15px}
-    .msg {margin:10px 0;padding:12px;border-radius:8px;max-width:80%}
-    .msg.user {background:#3b82f6;margin-left:auto}
-    .msg.ai {background:#334155}
-    .quick-btns {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}
-    .quick-btns button {padding:8px 16px;font-size:.9rem}
-    @media (max-width:768px) {h1{font-size:1.8rem}.grid{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>🏃 HM Coach</h1>
-      <div class="subtitle">Obiettivo: 1h35'00" | 30 Maggio 2026 | <span id="countdown-header"></span></div>
-    </header>
+const SHEET_ID = '1T6Ii49JP_DChJNqqUEnQAV0POmxPQ1DWkzML9xAYMhU';
 
-    <nav>
-      <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
-      <button class="tab" onclick="showTab('piano')">Piano</button>
-      <button class="tab" onclick="showTab('diario')">Diario</button>
-      <button class="tab" onclick="showTab('gara')">Gara</button>
-      <button class="tab" onclick="showTab('coach')">Coach AI</button>
-      <button class="tab" onclick="showTab('scarpe')">Scarpe</button>
-      <button class="tab" onclick="showTab('dieta')">Dieta</button>
-      <button class="tab" onclick="showTab('profilo')">Profilo</button>
-    </nav>
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.parameter.payload);
+    const ss = SpreadsheetApp.openById(SHEET_ID);
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" class="section active">
-      <div class="grid">
-        <div class="card"><h3>VO₂max Stimato</h3><div class="metric"><span id="vo2max">57</span><span> ml/kg/min</span></div></div>
-        <div class="card"><h3>FC Riposo</h3><div class="metric"><span id="fc_riposo">49</span><span> bpm</span></div></div>
-        <div class="card"><h3>Km Settimanali</h3><div class="metric"><span id="km_sett">45</span><span> km</span></div></div>
-        <div class="card"><h3>Forma</h3><div class="metric"><span id="forma">85</span><span> %</span></div></div>
-      </div>
-      <div class="card"><h3>Stato di Forma</h3><div class="chart-container"><canvas id="chartForma"></canvas></div></div>
-      <div class="card"><h3>Progressione VO₂max</h3><div class="chart-container"><canvas id="chartVo2"></canvas></div></div>
-      <div class="card"><h3>Zone Cardiache Karvonen</h3><div id="zoneDisplay"></div></div>
-    </div>
+    // Foglio Profilo
+    let shP = ss.getSheetByName('Profilo') || ss.insertSheet('Profilo');
+    shP.clear();
+    shP.getRange(1,1,1,2).setValues([['Chiave', 'Valore']]);
+    let row = 2;
+    for (let k in data.profilo) {
+      shP.getRange(row, 1, 1, 2).setValues([[k, data.profilo[k]]]);
+      row++;
+    }
 
-    <!-- PIANO -->
-    <div id="piano" class="section">
-      <div class="card">
-        <h3>Piano 12 Settimane | Dal 4 Maggio 2026</h3>
-        <button onclick="syncToSheet()" class="success">☁ Sincronizza</button>
-        <button onclick="loadFromSheet()">↓ Scarica</button>
-        <div id="pianoContent"></div>
-      </div>
-    </div>
+    // Foglio Scarpe
+    let shS = ss.getSheetByName('Scarpe') || ss.insertSheet('Scarpe');
+    shS.clear();
+    shS.getRange(1,1,1,5).setValues([['Nome','Tipo','KmMax','KmPercorsi','Attiva']]);
+    data.scarpe.forEach((s, i) => {
+      shS.getRange(i+2, 1, 1, 5).setValues([[s.nome, s.tipo, s.kmMax, s.kmPercorsi, s.attiva]]);
+    });
 
-    <!-- DIARIO -->
-    <div id="diario" class="section">
-      <div class="card">
-        <h3>Registra Allenamento</h3>
-        <input type="date" id="w_data"><select id="w_tipo"><option>Corsa Lenta</option><option>Medio</option><option>Ripetute</option><option>Lungo</option><option>Gara</option></select>
-        <input type="number" id="w_km" placeholder="Km" step="0.1"><input type="text" id="w_passo" placeholder="Passo mm:ss">
-        <input type="number" id="w_fc" placeholder="FC media"><input type="number" id="w_rpe" placeholder="RPE 1-10" min="1" max="10">
-        <select id="w_scarpa"></select><button onclick="addWorkout()">Salva Allenamento</button>
-      </div>
-      <div class="card"><h3>Storico Ultimi 20</h3><div id="diarioList"></div></div>
-      <div class="card"><h3>Progressione Passo</h3><div class="chart-container"><canvas id="chartPasso"></canvas></div></div>
-    </div>
+    // Foglio Diario
+    let shD = ss.getSheetByName('Diario') || ss.insertSheet('Diario');
+    shD.clear();
+    shD.getRange(1,1,1,7).setValues([['Data','Tipo','Km','Passo','FC','RPE','Scarpa']]);
+    data.diario.forEach((w, i) => {
+      shD.getRange(i+2, 1, 1, 7).setValues([[w.data, w.tipo, w.km, w.passo, w.fc, w.rpe, w.scarpa]]);
+    });
 
-    <!-- GARA -->
-    <div id="gara" class="section">
-      <div class="countdown" id="countdown"></div>
-      <div class="grid">
-        <div class="card"><h3>Obiettivo</h3><div class="metric">1:35:00</div></div>
-        <div class="card"><h3>Passo Target</h3><div class="metric">4:30<span> min/km</span></div></div>
-        <div class="card"><h3>FC Target</h3><div class="metric"><span id="fc_gara">168</span><span> bpm</span></div></div>
-      </div>
-      <div class="card"><h3>Strategia Km per Km</h3><div id="strategiaGara"></div></div>
-      <div class="card"><h3>Previsione Prestazione</h3><div class="chart-container"><canvas id="chartPrevisione"></canvas></div></div>
-    </div>
+    // Timestamp sync
+    let shLog = ss.getSheetByName('Log') || ss.insertSheet('Log');
+    shLog.getRange(1,1).setValue('Ultimo sync: ' + new Date());
 
-    <!-- COACH AI -->
-    <div id="coach" class="section">
-      <div class="card">
-        <h3>Coach AI - Gemini 2.0 Flash</h3>
-        <div class="quick-btns">
-          <button onclick="quickAsk('infortunio')">🤕 Infortunio</button>
-          <button onclick="quickAsk('malanno')">🤒 Malanno</button>
-          <button onclick="quickAsk('stanchezza')">😴 Stanchezza</button>
-          <button onclick="quickAsk('saltata')">❌ Sessione saltata</button>
-          <button onclick="quickAsk('gara')">
+    return ContentService.createTextOutput('OK');
+  } catch(err) {
+    return ContentService.createTextOutput('ERR: ' + err);
+  }
+}
+
+function doGet(e) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+
+  const profilo = {};
+  const shP = ss.getSheetByName('Profilo');
+  if (shP) {
+    const vals = shP.getRange(2,1,shP.getLastRow()-1,2).getValues();
+    vals.forEach(r => profilo[r[0]] = r[1]);
+  }
+
+  const scarpe = [];
+  const shS = ss.getSheetByName('Scarpe');
+  if (shS && shS.getLastRow() > 1) {
+    const vals = shS.getRange(2,1,shS.getLastRow()-1,5).getValues();
+    vals.forEach(r => scarpe.push({nome:r[0], tipo:r[1], kmMax:r[2], kmPercorsi:r[3], attiva:r[4]}));
+  }
+
+  const diario = [];
+  const shD = ss.getSheetByName('Diario');
+  if (shD && shD.getLastRow() > 1) {
+    const vals = shD.getRange(2,1,shD.getLastRow()-1,7).getValues();
+    vals.forEach(r => diario.push({data:r[0], tipo:r[1], km:r[2], passo:r[3], fc:r[4], rpe:r[5], scarpa:r[6]}));
+  }
+
+  const result = {profilo, scarpe, diario};
+  return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+}
