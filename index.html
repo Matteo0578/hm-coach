@@ -221,7 +221,11 @@ function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
+  
+  // Fix: trova il bottone giusto senza usare event.target
+  const btn = document.querySelector(`.tab[onclick="showTab('${id}')"]`);
+  if(btn) btn.classList.add('active');
+  
   if(id==='dashboard') renderDashboard();
   if(id==='piano') renderPiano();
   if(id==='diario') renderDiario();
