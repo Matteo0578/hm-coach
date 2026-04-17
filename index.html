@@ -1,418 +1,280 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HM Coach - 1h35'00"</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  <style>
-    * {margin:0;padding:0;box-sizing:border-box}
-    body {font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
-.container {max-width:1400px;margin:0 auto;padding:20px}
-    header {background:linear-gradient(135deg,#1e40af,#3b82f6);padding:30px;border-radius:16px;margin-bottom:30px;box-shadow:0 10px 40px rgba(59,130,246,.3)}
-    h1 {font-size:2.5rem;margin-bottom:10px}
-.subtitle {opacity:.9;font-size:1.1rem}
-    nav {display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
-.tab {padding:12px 24px;background:#1e293b;border:none;color:#94a3b8;cursor:pointer;border-radius:8px;font-size:1rem;transition:all.3s}
-.tab:hover {background:#334155;color:#fff}
-.tab.active {background:#3b82f6;color:#fff}
-.section {display:none;background:#1e293b;padding:30px;border-radius:16px;margin-bottom:20px}
-.section.active {display:block}
-.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px}
-.card {background:#0f172a;padding:20px;border-radius:12px;border:1px solid #334155}
-.card h3 {color:#60a5fa;margin-bottom:15px;font-size:.9rem;text-transform:uppercase;letter-spacing:1px}
-.metric {font-size:2.5rem;font-weight:bold;color:#fff;margin:10px 0}
-.metric span {font-size:1rem;color:#94a3b8;font-weight:normal}
-    button {background:#3b82f6;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:1rem;transition:all.3s;margin:5px}
-    button:hover {background:#2563eb;transform:translateY(-2px)}
-    button.danger {background:#ef4444}
-    button.danger:hover {background:#dc2626}
-    button.success {background:#10b981}
-    button.success:hover {background:#059669}
-    input,select,textarea {width:100%;padding:12px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-size:1rem;margin:8px 0}
-    input:focus,select:focus,textarea:focus {outline:none;border-color:#3b82f6}
-    table {width:100%;border-collapse:collapse;margin-top:20px}
-    th,td {padding:12px;text-align:left;border-bottom:1px solid #334155}
-    th {background:#0f172a;color:#60a5fa;font-weight:600;text-transform:uppercase;font-size:.85rem}
-    tr:hover {background:#0f172a}
-.chart-container {position:relative;height:300px;margin:20px 0}
-.zone-bar {height:30px;border-radius:15px;margin:10px 0;display:flex;overflow:hidden}
-.zone {display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600}
-.z1 {background:#10b981}.z2 {background:#3b82f6}.z3 {background:#f59e0b}.z4 {background:#ef4444}.z5 {background:#991b1b}
-.shoe-bar {height:24px;background:#334155;border-radius:12px;overflow:hidden;margin:10px 0}
-.shoe-fill {height:100%;transition:width.5s,background.5s;display:flex;align-items:center;padding-left:10px;font-size:.85rem;font-weight:600}
-.shoe-fill.green {background:#10b981}.shoe-fill.orange {background:#f59e0b}.shoe-fill.red {background:#ef4444}
-.meal {background:#0f172a;padding:15px;border-radius:8px;margin:10px 0;border-left:4px solid #3b82f6}
-.meal h4 {color:#60a5fa;margin-bottom:8px}
-.macros {display:flex;gap:15px;font-size:.9rem;color:#94a3b8;margin-top:8px}
-.countdown {font-size:3rem;text-align:center;color:#3b82f6;font-weight:bold;margin:20px 0}
-.chat-box {background:#0f172a;border:1px solid #334155;border-radius:12px;padding:20px;height:400px;overflow-y:auto;margin-bottom:15px}
-.msg {margin:10px 0;padding:12px;border-radius:8px;max-width:80%}
-.msg.user {background:#3b82f6;margin-left:auto}
-.msg.ai {background:#334155}
-.quick-btns {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}
-.quick-btns button {padding:8px 16px;font-size:.9rem}
-    @media (max-width:768px) {h1{font-size:1.8rem}.grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HM Coach - 1h35'00"</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#1e40af,#3b82f6);padding:30px;border-radius:16px;margin-bottom:30px;box-shadow:0 10px 40px rgba(59,130,246,.3)}
+h1{font-size:2.5rem;margin-bottom:10px}
+.subtitle{opacity:.9;font-size:1.1rem}
+nav{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+.tab{padding:12px 24px;background:#1e293b;border:none;color:#94a3b8;cursor:pointer;border-radius:8px;font-size:1rem;transition:all.3s}
+.tab:hover{background:#334155;color:#fff}
+.tab.active{background:#3b82f6;color:#fff}
+.section{display:none;background:#1e293b;padding:30px;border-radius:16px;margin-bottom:20px}
+.section.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px}
+.card{background:#0f172a;padding:20px;border-radius:12px;border:1px solid #334155}
+.card h3{color:#60a5fa;margin-bottom:15px;font-size:.9rem;text-transform:uppercase;letter-spacing:1px}
+.metric{font-size:2.5rem;font-weight:bold;color:#fff;margin:10px 0}
+.metric span{font-size:1rem;color:#94a3b8;font-weight:normal}
+button{background:#3b82f6;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:1rem;transition:all.3s;margin:5px}
+button:hover{background:#2563eb;transform:translateY(-2px)}
+button.danger{background:#ef4444}
+button.danger:hover{background:#dc2626}
+button.success{background:#10b981}
+button.success:hover{background:#059669}
+input,select,textarea{width:100%;padding:12px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-size:1rem;margin:8px 0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#3b82f6}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid #334155}
+th{background:#0f172a;color:#60a5fa;font-weight:600;text-transform:uppercase;font-size:.85rem}
+tr:hover{background:#0f172a}
+.chart-container{position:relative;height:300px;margin:20px 0}
+.zone-bar{height:30px;border-radius:15px;margin:10px 0;display:flex;overflow:hidden}
+.zone{display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600}
+.z1{background:#10b981}.z2{background:#3b82f6}.z3{background:#f59e0b}.z4{background:#ef4444}.z5{background:#991b1b}
+.shoe-bar{height:24px;background:#334155;border-radius:12px;overflow:hidden;margin:10px 0}
+.shoe-fill{height:100%;transition:width.5s,background.5s;display:flex;align-items:center;padding-left:10px;font-size:.85rem;font-weight:600}
+.shoe-fill.green{background:#10b981}.shoe-fill.orange{background:#f59e0b}.shoe-fill.red{background:#ef4444}
+.meal{background:#0f172a;padding:15px;border-radius:8px;margin:10px 0;border-left:4px solid #3b82f6}
+.meal h4{color:#60a5fa;margin-bottom:8px}
+.macros{display:flex;gap:15px;font-size:.9rem;color:#94a3b8;margin-top:8px}
+.countdown{font-size:3rem;text-align:center;color:#3b82f6;font-weight:bold;margin:20px 0}
+.chat-box{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:20px;height:400px;overflow-y:auto;margin-bottom:15px}
+.msg{margin:10px 0;padding:12px;border-radius:8px;max-width:80%}
+.msg.user{background:#3b82f6;margin-left:auto}
+.msg.ai{background:#334155}
+.quick-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}
+.quick-btns button{padding:8px 16px;font-size:.9rem}
+@media (max-width:768px){h1{font-size:1.8rem}.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🏃 HM Coach</h1>
-      <div class="subtitle">Obiettivo: 1h35'00" | 30 Maggio 2026 | <span id="countdown-header"></span></div>
-    </header>
-
-    <nav>
-      <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
-      <button class="tab" onclick="showTab('piano')">Piano</button>
-      <button class="tab" onclick="showTab('diario')">Diario</button>
-      <button class="tab" onclick="showTab('gara')">Gara</button>
-      <button class="tab" onclick="showTab('coach')">Coach AI</button>
-      <button class="tab" onclick="showTab('scarpe')">Scarpe</button>
-      <button class="tab" onclick="showTab('dieta')">Dieta</button>
-      <button class="tab" onclick="showTab('profilo')">Profilo</button>
-    </nav>
-
-    <!-- DASHBOARD -->
-    <div id="dashboard" class="section active">
-      <div class="grid">
-        <div class="card"><h3>VO₂max Stimato</h3><div class="metric"><span id="vo2max">57</span><span> ml/kg/min</span></div></div>
-        <div class="card"><h3>FC Riposo</h3><div class="metric"><span id="fc_riposo">49</span><span> bpm</span></div></div>
-        <div class="card"><h3>Km Settimanali</h3><div class="metric"><span id="km_sett">45</span><span> km</span></div></div>
-        <div class="card"><h3>Forma</h3><div class="metric"><span id="forma">85</span><span> %</span></div></div>
-      </div>
-      <div class="card"><h3>Stato di Forma</h3><div class="chart-container"><canvas id="chartForma"></canvas></div></div>
-      <div class="card"><h3>Progressione VO₂max</h3><div class="chart-container"><canvas id="chartVo2"></canvas></div></div>
-      <div class="card"><h3>Zone Cardiache Karvonen</h3><div id="zoneDisplay"></div></div>
-    </div>
-
-    <!-- PIANO -->
-    <div id="piano" class="section">
-      <div class="card">
-        <h3>Piano 12 Settimane | Dal 4 Maggio 2026</h3>
-        <button onclick="syncToSheet()" class="success">☁ Sincronizza</button>
-        <button onclick="loadFromSheet()">↓ Scarica</button>
-        <div id="pianoContent"></div>
-      </div>
-    </div>
-
-    <!-- DIARIO -->
-    <div id="diario" class="section">
-      <div class="card">
-        <h3>Registra Allenamento</h3>
-        <input type="date" id="w_data"><select id="w_tipo"><option>Corsa Lenta</option><option>Medio</option><option>Ripetute</option><option>Lungo</option><option>Gara</option></select>
-        <input type="number" id="w_km" placeholder="Km" step="0.1"><input type="text" id="w_passo" placeholder="Passo mm:ss">
-        <input type="number" id="w_fc" placeholder="FC media"><input type="number" id="w_rpe" placeholder="RPE 1-10" min="1" max="10">
-        <select id="w_scarpa"></select><button onclick="addWorkout()">Salva Allenamento</button>
-      </div>
-      <div class="card"><h3>Storico Ultimi 20</h3><div id="diarioList"></div></div>
-      <div class="card"><h3>Progressione Passo</h3><div class="chart-container"><canvas id="chartPasso"></canvas></div></div>
-    </div>
-
-    <!-- GARA -->
-    <div id="gara" class="section">
-      <div class="countdown" id="countdown"></div>
-      <div class="grid">
-        <div class="card"><h3>Obiettivo</h3><div class="metric">1:35:00</div></div>
-        <div class="card"><h3>Passo Target</h3><div class="metric">4:30<span> min/km</span></div></div>
-        <div class="card"><h3>FC Target</h3><div class="metric"><span id="fc_gara">168</span><span> bpm</span></div></div>
-      </div>
-      <div class="card"><h3>Strategia Km per Km</h3><div id="strategiaGara"></div></div>
-      <div class="card"><h3>Previsione Prestazione</h3><div class="chart-container"><canvas id="chartPrevisione"></canvas></div></div>
-    </div>
-
-    <!-- COACH AI -->
-    <div id="coach" class="section">
-      <div class="card">
-        <h3>Coach AI - Gemini 2.0 Flash</h3>
-        <div class="quick-btns">
-          <button onclick="quickAsk('infortunio')">🤕 Infortunio</button>
-          <button onclick="quickAsk('malanno')">🤒 Malanno</button>
-          <button onclick="quickAsk('stanchezza')">😴 Stanchezza</button>
-          <button onclick="quickAsk('saltata')">❌ Sessione saltata</button>
-          <button onclick="quickAsk('gara')">🏁 Strategia gara</button>
-          <button onclick="quickAsk('nutrizione')">🍝 Nutrizione</button>
-        </div>
-        <div class="chat-box" id="chatBox"></div>
-        <textarea id="chatInput" rows="2" placeholder="Chiedi al coach..."></textarea>
-        <button onclick="sendToCoach()">Invia</button>
-      </div>
-    </div>
-
-    <!-- SCARPE -->
-    <div id="scarpe" class="section">
-      <div class="card"><h3>Le Tue Scarpe</h3><button onclick="showAddShoe()">+ Aggiungi Scarpa</button><div id="scarpeList"></div></div>
-    </div>
-
-    <!-- DIETA -->
-    <div id="dieta" class="section">
-      <div class="card">
-        <h3>Piano Nutrizionale Personalizzato</h3>
-        <select id="dietaScenario" onchange="renderDieta()">
-          <option value="allenamento">Giorno Allenamento - 2100 kcal</option>
-          <option value="riposo">Giorno Riposo - 1850 kcal</option>
-          <option value="lungo">Giorno Lungo - 2400 kcal</option>
-          <option value="pregara">Pre-Gara - 2200 kcal</option>
-        </select>
-        <div id="dietaContent"></div>
-      </div>
-    </div>
-
-    <!-- PROFILO -->
-    <div id="profilo" class="section">
-      <div class="card">
-        <h3>Profilo Atleta</h3>
-        <input type="number" id="p_eta" placeholder="Età" value="47">
-        <input type="number" id="p_peso" placeholder="Peso kg" value="77">
-        <input type="number" id="p_altezza" placeholder="Altezza cm" value="177">
-        <input type="number" id="p_fc_riposo" placeholder="FC Riposo" value="49">
-        <input type="number" id="p_fc_max" placeholder="FC Max" value="186">
-        <input type="text" id="p_gara" placeholder="Data gara" value="2026-05-30">
-        <input type="text" id="p_obiettivo" placeholder="Obiettivo hh:mm:ss" value="1:35:00">
-        <button onclick="saveProfilo()" class="success">Salva Profilo</button>
-      </div>
-    </div>
-  </div>
-
+<div class="container">
+<header>
+<h1>🏃 HM Coach</h1>
+<div class="subtitle">Obiettivo: 1h35'00" | 30 Maggio 2026 | <span id="countdown-header"></span></div>
+</header>
+<nav>
+<button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
+<button class="tab" onclick="showTab('piano')">Piano</button>
+<button class="tab" onclick="showTab('diario')">Diario</button>
+<button class="tab" onclick="showTab('gara')">Gara</button>
+<button class="tab" onclick="showTab('coach')">Coach AI</button>
+<button class="tab" onclick="showTab('scarpe')">Scarpe</button>
+<button class="tab" onclick="showTab('dieta')">Dieta</button>
+<button class="tab" onclick="showTab('profilo')">Profilo</button>
+</nav>
+<div id="dashboard" class="section active">
+<div class="grid">
+<div class="card"><h3>VO₂max Stimato</h3><div class="metric"><span id="vo2max">57</span><span> ml/kg/min</span></div></div>
+<div class="card"><h3>FC Riposo</h3><div class="metric"><span id="fc_riposo">49</span><span> bpm</span></div></div>
+<div class="card"><h3>Km Settimanali</h3><div class="metric"><span id="km_sett">45</span><span> km</span></div></div>
+<div class="card"><h3>Forma</h3><div class="metric"><span id="forma">85</span><span> %</span></div></div>
+</div>
+<div class="card"><h3>Stato di Forma</h3><div class="chart-container"><canvas id="chartForma"></canvas></div></div>
+<div class="card"><h3>Progressione VO₂max</h3><div class="chart-container"><canvas id="chartVo2"></canvas></div></div>
+<div class="card"><h3>Zone Cardiache Karvonen</h3><div id="zoneDisplay"></div></div>
+</div>
+<div id="piano" class="section">
+<div class="card">
+<h3>Piano 12 Settimane | Dal 4 Maggio 2026</h3>
+<button onclick="syncToSheet()" class="success">☁ Sincronizza</button>
+<button onclick="loadFromSheet()">↓ Scarica</button>
+<div id="pianoContent"></div>
+</div>
+<div id="diario" class="section">
+<div class="card">
+<h3>Registra Allenamento</h3>
+<input type="date" id="w_data"><select id="w_tipo"><option>Corsa Lenta</option><option>Medio</option><option>Ripetute</option><option>Lungo</option><option>Gara</option></select>
+<input type="number" id="w_km" placeholder="Km" step="0.1"><input type="text" id="w_passo" placeholder="Passo mm:ss">
+<input type="number" id="w_fc" placeholder="FC media"><input type="number" id="w_rpe" placeholder="RPE 1-10" min="1" max="10">
+<select id="w_scarpa"></select><button onclick="addWorkout()">Salva Allenamento</button>
+</div>
+<div class="card"><h3>Storico Ultimi 20</h3><div id="diarioList"></div></div>
+<div class="card"><h3>Progressione Passo</h3><div class="chart-container"><canvas id="chartPasso"></canvas></div></div>
+</div>
+<div id="gara" class="section">
+<div class="countdown" id="countdown"></div>
+<div class="grid">
+<div class="card"><h3>Obiettivo</h3><div class="metric">1:35:00</div></div>
+<div class="card"><h3>Passo Target</h3><div class="metric">4:30<span> min/km</span></div></div>
+<div class="card"><h3>FC Target</h3><div class="metric"><span id="fc_gara">168</span><span> bpm</span></div></div>
+</div>
+<div class="card"><h3>Strategia Km per Km</h3><div id="strategiaGara"></div></div>
+<div class="card"><h3>Previsione Prestazione</h3><div class="chart-container"><canvas id="chartPrevisione"></canvas></div></div>
+</div>
+<div id="coach" class="section">
+<div class="card">
+<h3>Coach AI - Gemini 2.0 Flash</h3>
+<div class="quick-btns">
+<button onclick="quickAsk('infortunio')">🤕 Infortunio</button>
+<button onclick="quickAsk('malanno')">🤒 Malanno</button>
+<button onclick="quickAsk('stanchezza')">😴 Stanchezza</button>
+<button onclick="quickAsk('saltata')">❌ Sessione saltata</button>
+<button onclick="quickAsk('gara')">🏁 Strategia gara</button>
+<button onclick="quickAsk('nutrizione')">🍝 Nutrizione</button>
+</div>
+<div class="chat-box" id="chatBox"></div>
+<textarea id="chatInput" rows="2" placeholder="Chiedi al coach..."></textarea>
+<button onclick="sendToCoach()">Invia</button>
+</div>
+<div id="scarpe" class="section">
+<div class="card"><h3>Le Tue Scarpe</h3><button onclick="showAddShoe()">+ Aggiungi Scarpa</button><div id="scarpeList"></div></div>
+</div>
+<div id="dieta" class="section">
+<div class="card">
+<h3>Piano Nutrizionale Personalizzato</h3>
+<select id="dietaScenario" onchange="renderDieta()">
+<option value="allenamento">Giorno Allenamento - 2100 kcal</option>
+<option value="riposo">Giorno Riposo - 1850 kcal</option>
+<option value="lungo">Giorno Lungo - 2400 kcal</option>
+<option value="pregara">Pre-Gara - 2200 kcal</option>
+</select>
+<div id="dietaContent"></div>
+</div>
+<div id="profilo" class="section">
+<div class="card">
+<h3>Profilo Atleta</h3>
+<input type="number" id="p_eta" placeholder="Età" value="47">
+<input type="number" id="p_peso" placeholder="Peso kg" value="77">
+<input type="number" id="p_altezza" placeholder="Altezza cm" value="177">
+<input type="number" id="p_fc_riposo" placeholder="FC Riposo" value="49">
+<input type="number" id="p_fc_max" placeholder="FC Max" value="186">
+<input type="text" id="p_gara" placeholder="Data gara" value="2026-05-30">
+<input type="text" id="p_obiettivo" placeholder="Obiettivo hh:mm:ss" value="1:35:00">
+<button onclick="saveProfilo()" class="success">Salva Profilo</button>
+</div>
 <script>
-// === CONFIG ===
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKqDOzuXJl-VCTI_hdt1T_e3BpTaETC2o8_CEU8coJd2qH00qSi1_wDf73cTubIhV7IQ/exec';
 const GEMINI_KEY = 'AIzaSyC4vi7FYWgLWrv3t_vc175IE__EQ_wCxDw';
-
-// === STORAGE ===
-let hmc4_p = JSON.parse(localStorage.getItem('hmc4_p') || JSON.stringify({
-  eta:47,peso:77,altezza:177,fc_riposo:49,fc_max:186,vo2max:57,km_sett:45,forma:85,gara:'2026-05-30',obiettivo:'1:35:00'
-}));
+let hmc4_p = JSON.parse(localStorage.getItem('hmc4_p') || JSON.stringify({eta:47,peso:77,altezza:177,fc_riposo:49,fc_max:186,vo2max:57,km_sett:45,forma:85,gara:'2026-05-30',obiettivo:'1:35:00'}));
 let hmc4_s = JSON.parse(localStorage.getItem('hmc4_s') || '[]');
 let hmc4_w = JSON.parse(localStorage.getItem('hmc4_w') || '[]');
-
-// === SYNC ===
-function syncToSheet() {
-  const payload = JSON.stringify({profilo: hmc4_p, scarpe: hmc4_s, diario: hmc4_w.slice(-50)});
-  if (!document.getElementById('sync_iframe')) {
-    const iframe = document.createElement('iframe');
-    iframe.name = 'sync_iframe'; iframe.id = 'sync_iframe'; iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  }
-  const form = document.createElement('form');
-  form.method = 'POST'; form.action = APPS_SCRIPT_URL; form.target = 'sync_iframe';
-  const input = document.createElement('input');
-  input.type = 'hidden'; input.name = 'payload'; input.value = payload;
-  form.appendChild(input); document.body.appendChild(form); form.submit(); document.body.removeChild(form);
-  alert('✅ Sincronizzazione inviata! Controlla Google Sheets tra 5 secondi.');
+function syncToSheet(){
+const payload = JSON.stringify({profilo: hmc4_p, scarpe: hmc4_s, diario: hmc4_w.slice(-50)});
+if (!document.getElementById('sync_iframe')) {
+const iframe = document.createElement('iframe');
+iframe.name = 'sync_iframe'; iframe.id = 'sync_iframe'; iframe.style.display = 'none';
+document.body.appendChild(iframe);
 }
-
-function loadFromSheet() {
-  fetch(APPS_SCRIPT_URL)
-.then(r => r.json())
-.then(data => {
-      hmc4_p = data.profilo; hmc4_s = data.scarpe; hmc4_w = data.diario;
-      localStorage.setItem('hmc4_p', JSON.stringify(hmc4_p));
-      localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));
-      localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w));
-      alert('✅ Dati scaricati! Ricarico la pagina.');
-      location.reload();
-    })
-.catch(e => alert('Errore download: ' + e));
+const form = document.createElement('form');
+form.method = 'POST'; form.action = APPS_SCRIPT_URL; form.target = 'sync_iframe';
+const input = document.createElement('input');
+input.type = 'hidden'; input.name = 'payload'; input.value = payload;
+form.appendChild(input); document.body.appendChild(form); form.submit(); document.body.removeChild(form);
+alert('✅ Sincronizzazione inviata! Controlla Google Sheets tra 5 secondi.');
 }
-
-// === UI CORE ===
-function showTab(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const btn = document.querySelector(`.tab[onclick="showTab('${id}')"]`);
-  if(btn) btn.classList.add('active');
-  if(id==='dashboard') renderDashboard();
-  if(id==='piano') renderPiano();
-  if(id==='diario') renderDiario();
-  if(id==='gara') renderGara();
-  if(id==='scarpe') renderScarpe();
-  if(id==='dieta') renderDieta();
+function loadFromSheet(){
+fetch(APPS_SCRIPT_URL).then(r => r.json()).then(data => {
+hmc4_p = data.profilo; hmc4_s = data.scarpe; hmc4_w = data.diario;
+localStorage.setItem('hmc4_p', JSON.stringify(hmc4_p));
+localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));
+localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w));
+alert('✅ Dati scaricati! Ricarico la pagina.');
+location.reload();
+}).catch(e => alert('Errore download: ' + e));
 }
-
-function karvonen(perc) {
-  return Math.round(hmc4_p.fc_riposo + (hmc4_p.fc_max - hmc4_p.fc_riposo) * perc);
+function showTab(id){
+document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+const btn = document.querySelector(`.tab[onclick="showTab('${id}')"]`);
+if(btn) btn.classList.add('active');
+if(id==='dashboard') renderDashboard();
+if(id==='piano') renderPiano();
+if(id==='diario') renderDiario();
+if(id==='gara') renderGara();
+if(id==='scarpe') renderScarpe();
+if(id==='dieta') renderDieta();
 }
-
-function renderDashboard() {
-  document.getElementById('vo2max').textContent = hmc4_p.vo2max;
-  document.getElementById('fc_riposo').textContent = hmc4_p.fc_riposo;
-  document.getElementById('km_sett').textContent = hmc4_p.km_sett;
-  document.getElementById('forma').textContent = hmc4_p.forma;
-  const zones = [
-    {name:'Z1 Recupero',min:karvonen(0.5),max:karvonen(0.6),class:'z1'},
-    {name:'Z2 Fondo',min:karvonen(0.6),max:karvonen(0.7),class:'z2'},
-    {name:'Z3 Medio',min:karvonen(0.7),max:karvonen(0.8),class:'z3'},
-    {name:'Z4 Soglia',min:karvonen(0.8),max:karvonen(0.9),class:'z4'},
-    {name:'Z5 VO2max',min:karvonen(0.9),max:hmc4_p.fc_max,class:'z5'}
-  ];
-  document.getElementById('zoneDisplay').innerHTML = zones.map(z =>
-    `<div class="zone-bar"><div class="zone ${z.class}" style="width:100%">${z.name}: ${z.min}-${z.max} bpm</div></div>`
-  ).join('');
-  new Chart(document.getElementById('chartForma'), {
-    type:'line',data:{labels:['8w fa','6w fa','4w fa','2w fa','Oggi'],
-    datasets:[{label:'Forma %',data:[65,70,75,80,hmc4_p.forma],borderColor:'#3b82f6',tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
-  new Chart(document.getElementById('chartVo2'), {
-    type:'line',data:{labels:['Inizio','4w','8w','Oggi'],
-    datasets:[{label:'VO₂max',data:[52,54,56,hmc4_p.vo2max],borderColor:'#10b981',tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
+function karvonen(perc){
+return Math.round(hmc4_p.fc_riposo + (hmc4_p.fc_max - hmc4_p.fc_riposo) * perc);
 }
-
-function renderPiano() {
-  const start = new Date('2026-05-04');
-  const weeks = ['Base','Base','Sviluppo','Sviluppo','Sviluppo','Sviluppo','Picco','Picco','Taper','Gara'];
-  let html = '<table><tr><th>Settimana</th><th>Periodo</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Gio</th><th>Ven</th><th>Sab</th><th>Dom</th></tr>';
-  for(let w=0;w<12;w++) {
-    html += `<tr><td>W${w+1}</td><td>${weeks[w]}</td><td>Riposo</td><td>CL 10k 4:50</td><td>Ripetute</td><td>CL 8k</td><td>Riposo</td><td>Medio 12k 4:35</td><td>Lungo ${w<8?20+w*2:32}k 5:30</td></tr>`;
-  }
-  document.getElementById('pianoContent').innerHTML = html + '</table>';
+function renderDashboard(){
+document.getElementById('vo2max').textContent = hmc4_p.vo2max;
+document.getElementById('fc_riposo').textContent = hmc4_p.fc_riposo;
+document.getElementById('km_sett').textContent = hmc4_p.km_sett;
+document.getElementById('forma').textContent = hmc4_p.forma;
+const zones = [{name:'Z1 Recupero',min:karvonen(0.5),max:karvonen(0.6),class:'z1'},{name:'Z2 Fondo',min:karvonen(0.6),max:karvonen(0.7),class:'z2'},{name:'Z3 Medio',min:karvonen(0.7),max:karvonen(0.8),class:'z3'},{name:'Z4 Soglia',min:karvonen(0.8),max:karvonen(0.9),class:'z4'},{name:'Z5 VO2max',min:karvonen(0.9),max:hmc4_p.fc_max,class:'z5'}];
+document.getElementById('zoneDisplay').innerHTML = zones.map(z => `<div class="zone-bar"><div class="zone ${z.class}" style="width:100%">${z.name}: ${z.min}-${z.max} bpm</div></div>`).join('');
+new Chart(document.getElementById('chartForma'), {type:'line',data:{labels:['8w fa','6w fa','4w fa','2w fa','Oggi'],datasets:[{label:'Forma %',data:[65,70,75,80,hmc4_p.forma],borderColor:'#3b82f6',tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}});
+new Chart(document.getElementById('chartVo2'), {type:'line',data:{labels:['Inizio','4w','8w','Oggi'],datasets:[{label:'VO₂max',data:[52,54,56,hmc4_p.vo2max],borderColor:'#10b981',tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}});
 }
-
-function renderDiario() {
-  const opts = hmc4_s.map(s=>`<option>${s.nome}</option>`).join('');
-  document.getElementById('w_scarpa').innerHTML = opts;
-  document.getElementById('diarioList').innerHTML = '<table><tr><th>Data</th><th>Tipo</th><th>Km</th><th>Passo</th><th>FC</th><th>RPE</th><th></th></tr>' +
-    hmc4_w.slice(-20).reverse().map((w,i)=>`<tr><td>${w.data}</td><td>${w.tipo}</td><td>${w.km}</td><td>${w.passo}</td><td>${w.fc}</td><td>${w.rpe}</td><td><button class="danger" onclick="delWorkout(${hmc4_w.length-1-i})">X</button></td></tr>`).join('') + '</table>';
-  if(hmc4_w.length>0) {
-    new Chart(document.getElementById('chartPasso'), {
-      type:'line',data:{labels:hmc4_w.slice(-10).map(w=>w.data),
-      datasets:[{label:'Passo min/km',data:hmc4_w.slice(-10).map(w=>{const p=w.passo.split(':');return parseInt(p[0])+parseInt(p[1])/60}),borderColor:'#f59e0b',tension:.4}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{reverse:true,ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-    });
-  }
+function renderPiano(){
+let html = '<table><tr><th>Settimana</th><th>Periodo</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Gio</th><th>Ven</th><th>Sab</th><th>Dom</th></tr>';
+for(let w=0;w<12;w++){html += `<tr><td>W${w+1}</td><td>${w<2?'Base':w<6?'Sviluppo':w<9?'Picco':'Taper'}</td><td>Riposo</td><td>CL 10k 4:50</td><td>Ripetute</td><td>CL 8k</td><td>Riposo</td><td>Medio 12k 4:35</td><td>Lungo ${w<8?20+w*2:32}k 5:30</td></tr>`;}
+document.getElementById('pianoContent').innerHTML = html + '</table>';
 }
-
-function addWorkout() {
-  hmc4_w.push({
-    data:document.getElementById('w_data').value,
-    tipo:document.getElementById('w_tipo').value,
-    km:document.getElementById('w_km').value,
-    passo:document.getElementById('w_passo').value,
-    fc:document.getElementById('w_fc').value,
-    rpe:document.getElementById('w_rpe').value,
-    scarpa:document.getElementById('w_scarpa').value
-  });
-  localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w));
-  const scarpa = hmc4_s.find(s=>s.nome===document.getElementById('w_scarpa').value);
-  if(scarpa) {scarpa.kmPercorsi = (parseFloat(scarpa.kmPercorsi)||0) + parseFloat(document.getElementById('w_km').value); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));}
-  renderDiario(); renderScarpe();
+function renderDiario(){
+const opts = hmc4_s.map(s=>`<option>${s.nome}</option>`).join('');
+document.getElementById('w_scarpa').innerHTML = opts;
+document.getElementById('diarioList').innerHTML = '<table><tr><th>Data</th><th>Tipo</th><th>Km</th><th>Passo</th><th>FC</th><th>RPE</th><th></tr>' + hmc4_w.slice(-20).reverse().map((w,i)=>`<tr><td>${w.data}</td><td>${w.tipo}</td><td>${w.km}</td><td>${w.passo}</td><td>${w.fc}</td><td>${w.rpe}</td><td><button class="danger" onclick="delWorkout(${hmc4_w.length-1-i})">X</button></td></tr>`).join('') + '</table>';
+if(hmc4_w.length>0){new Chart(document.getElementById('chartPasso'), {type:'line',data:{labels:hmc4_w.slice(-10).map(w=>w.data),datasets:[{label:'Passo min/km',data:hmc4_w.slice(-10).map(w=>{const p=w.passo.split(':');return parseInt(p[0])+parseInt(p[1])/60}),borderColor:'#f59e0b',tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{reverse:true,ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}});}
 }
-
-function delWorkout(i) {hmc4_w.splice(i,1); localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w)); renderDiario();}
-
-function renderGara() {
-  const gara = new Date(hmc4_p.gara); const oggi = new Date();
-  const giorni = Math.ceil((gara - oggi)/(1000*60*60*24));
-  document.getElementById('countdown').textContent = giorni + ' giorni';
-  document.getElementById('countdown-header').textContent = giorni + 'g';
-  document.getElementById('fc_gara').textContent = karvonen(0.88);
-  let strat = '<table><tr><th>Km</th><th>Passo</th><th>FC Target</th><th>Note</th></tr>';
-  for(let k=1;k<=21;k++) {
-    let pace='4:30', fc=karvonen(0.85), note='Ritmo gara';
-    if(k<=3) {pace='4:35';fc=karvonen(0.82);note='Partenza controllata';}
-    if(k>=18) {pace='4:25';fc=karvonen(0.90);note='Finale tutto';}
-    strat += `<tr><td>${k}</td><td>${pace}</td><td>${fc}</td><td>${note}</td></tr>`;
-  }
-  document.getElementById('strategiaGara').innerHTML = strat + '</table>';
-  new Chart(document.getElementById('chartPrevisione'), {
-    type:'bar',data:{labels:['10k','HM','30k','Maratona'],
-    datasets:[{label:'Tempo Previsto',data:[41.5,95,145,210],backgroundColor:'#3b82f6'}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
+function addWorkout(){
+hmc4_w.push({data:document.getElementById('w_data').value,tipo:document.getElementById('w_tipo').value,km:document.getElementById('w_km').value,passo:document.getElementById('w_passo').value,fc:document.getElementById('w_fc').value,rpe:document.getElementById('w_rpe').value,scarpa:document.getElementById('w_scarpa').value});
+localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w));
+const scarpa = hmc4_s.find(s=>s.nome===document.getElementById('w_scarpa').value);
+if(scarpa){scarpa.kmPercorsi = (parseFloat(scarpa.kmPercorsi)||0) + parseFloat(document.getElementById('w_km').value); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));}
+renderDiario(); renderScarpe();
 }
-
-function renderScarpe() {
-  document.getElementById('scarpeList').innerHTML = hmc4_s.map((s,i)=>{
-    const perc = Math.min(100,(s.kmPercorsi/s.kmMax)*100);
-    const col = perc<70?'green':perc<90?'orange':'red';
-    return `<div class="card"><h4>${s.nome} - ${s.tipo}</h4>
-      <div class="shoe-bar"><div class="shoe-fill ${col}" style="width:${perc}%">${s.kmPercorsi}/${s.kmMax} km</div></div>
-      <button onclick="editShoe(${i})">Modifica</button><button class="danger" onclick="delShoe(${i})">Elimina</button></div>`;
-  }).join('');
+function delWorkout(i){hmc4_w.splice(i,1); localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w)); renderDiario();}
+function renderGara(){
+const gara = new Date(hmc4_p.gara); const oggi = new Date();
+const giorni = Math.ceil((gara - oggi)/(1000*60*60*24));
+document.getElementById('countdown').textContent = giorni + ' giorni';
+document.getElementById('countdown-header').textContent = giorni + 'g';
+document.getElementById('fc_gara').textContent = karvonen(0.88);
+let strat = '<table><tr><th>Km</th><th>Passo</th><th>FC Target</th><th>Note</th></tr>';
+for(let k=1;k<=21;k++){let pace='4:30', fc=karvonen(0.85), note='Ritmo gara';if(k<=3){pace='4:35';fc=karvonen(0.82);note='Partenza controllata';}if(k>=18){pace='4:25';fc=karvonen(0.90);note='Finale tutto';}strat += `<tr><td>${k}</td><td>${pace}</td><td>${fc}</td><td>${note}</td></tr>`;}
+document.getElementById('strategiaGara').innerHTML = strat + '</table>';
+new Chart(document.getElementById('chartPrevisione'), {type:'bar',data:{labels:['10k','HM','30k','Maratona'],datasets:[{label:'Tempo Previsto',data:[41.5,95,145,210],backgroundColor:'#3b82f6'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}});
 }
-
-function showAddShoe() {
-  const nome = prompt('Nome scarpa:'); if(!nome) return;
-  const tipo = prompt('Tipo (A1/A2/A3):'); const kmMax = prompt('Km max:');
-  hmc4_s.push({nome,tipo,kmMax:parseInt(kmMax),kmPercorsi:0,attiva:true});
-  localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();
+function renderScarpe(){
+document.getElementById('scarpeList').innerHTML = hmc4_s.map((s,i)=>{const perc = Math.min(100,(s.kmPercorsi/s.kmMax)*100);const col = perc<70?'green':perc<90?'orange':'red';return `<div class="card"><h4>${s.nome} - ${s.tipo}</h4><div class="shoe-bar"><div class="shoe-fill ${col}" style="width:${perc}%">${s.kmPercorsi}/${s.kmMax} km</div></div><button onclick="editShoe(${i})">Modifica</button><button class="danger" onclick="delShoe(${i})">Elimina</button></div>`;}).join('');
 }
-
-function editShoe(i) {
-  const km = prompt('Km percorsi:', hmc4_s[i].kmPercorsi);
-  if(km!==null) {hmc4_s[i].kmPercorsi=parseFloat(km); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();}
+function showAddShoe(){const nome = prompt('Nome scarpa:'); if(!nome) return;const tipo = prompt('Tipo (A1/A2/A3):'); const kmMax = prompt('Km max:');hmc4_s.push({nome,tipo,kmMax:parseInt(kmMax),kmPercorsi:0,attiva:true});localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();}
+function editShoe(i){const km = prompt('Km percorsi:', hmc4_s[i].kmPercorsi);if(km!==null){hmc4_s[i].kmPercorsi=parseFloat(km); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();}}
+function delShoe(i){if(confirm('Elimina?')){hmc4_s.splice(i,1);localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));renderScarpe();}}
+function renderDieta(){
+const sc = document.getElementById('dietaScenario').value;
+const diete = {allenamento:{kcal:2100,pasti:[{nome:'Colazione 06:45',ali:'Avena 80g, Banana 1, Miele 20g, Mandorle 20g, Caffè',p:15,c:85,f:12},{nome:'Snack 10:30',ali:'Yogurt greco 200g, Mirtilli 100g',p:20,c:15,f:0},{nome:'Pranzo 13:00',ali:'Riso 100g, Pollo 150g, Verdure 200g, Olio 10g',p:45,c:80,f:12},{nome:'Cena 20:30',ali:'Pasta 80g, Tonno 100g, Pomodoro, Olio 10g',p:35,c:65,f:12}]},riposo:{kcal:1850,pasti:[{nome:'Colazione 06:45',ali:'Pane integrale 60g, Uova 2, Avocado 50g',p:18,c:35,f:20},{nome:'Snack 10:30',ali:'Mela 1, Noci 20g',p:3,c:25,f:12},{nome:'Pranzo 13:00',ali:'Quinoa 80g, Salmone 120g, Broccoli 200g',p:35,c:55,f:15},{nome:'Cena 20:30',ali:'Zuppa legumi 300g, Pane 40g, Olio 5g',p:20,c:60,f:8}]},lungo:{kcal:2400,pasti:[{nome:'Colazione 06:45',ali:'Porridge 100g, Banana 2, Miele 30g, Burro arachidi 20g',p:18,c:110,f:15},{nome:'Snack 10:30',ali:'Barretta energetica, Datteri 3',p:5,c:40,f:2},{nome:'Pranzo 13:00',ali:'Pasta 120g, Ragù magro 100g, Parmigiano 20g',p:40,c:95,f:15},{nome:'Cena 20:30',ali:'Riso 100g, Pollo 180g, Patate 200g, Olio 15g',p:50,c:90,f:18}]},pregara:{kcal:2200,pasti:[{nome:'Colazione 06:45',ali:'Pane bianco 100g, Marmellata 40g, Banana 1',p:8,c:95,f:2},{nome:'Snack 10:30',ali:'Gel energetico, Acqua',p:0,c:25,f:0},{nome:'Pranzo 13:00',ali:'Riso bianco 120g, Petto pollo 100g, Zucchine',p:35,c:95,f:5},{nome:'Cena 20:30',ali:'Pasta 100g, Olio 10g, Parmigiano 15g',p:18,c:80,f:12}]}};
+const d = diete[sc];
+document.getElementById('dietaContent').innerHTML = d.pasti.map(p=>`<div class="meal"><h4>${p.nome}</h4><div>${p.ali}</div><div class="macros"><span>P: ${p.p}g</span><span>C: ${p.c}g</span><span>F: ${p.f}g</span></div></div>`).join('') + `<div class="metric" style="text-align:center;margin-top:20px">Totale: ${d.kcal} kcal</div>`;
 }
-
-function delShoe(i) {if(confirm('Elimina?')){hmc4_s.splice(i,1);localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));renderScarpe();}}
-
-function renderDieta() {
-  const sc = document.getElementById('dietaScenario').value;
-  const diete = {
-    allenamento:{kcal:2100,pasti:[
-      {nome:'Colazione 06:45',ali:'Avena 80g, Banana 1, Miele 20g, Mandorle 20g, Caffè',p:15,c:85,f:12},
-      {nome:'Snack 10:30',ali:'Yogurt greco 200g, Mirtilli 100g',p:20,c:15,f:0},
-      {nome:'Pranzo 13:00',ali:'Riso 100g, Pollo 150g, Verdure 200g, Olio 10g',p:45,c:80,f:12},
-      {nome:'Cena 20:30',ali:'Pasta 80g, Tonno 100g, Pomodoro, Olio 10g',p:35,c:65,f:12}
-    ]},
-    riposo:{kcal:1850,pasti:[
-      {nome:'Colazione 06:45',ali:'Pane integrale 60g, Uova 2, Avocado 50g',p:18,c:35,f:20},
-      {nome:'Snack 10:30',ali:'Mela 1, Noci 20g',p:3,c:25,f:12},
-      {nome:'Pranzo 13:00',ali:'Quinoa 80g, Salmone 120g, Broccoli 200g',p:35,c:55,f:15},
-      {nome:'Cena 20:30',ali:'Zuppa legumi 300g, Pane 40g, Olio 5g',p:20,c:60,f:8}
-    ]},
-    lungo:{kcal:2400,pasti:[
-      {nome:'Colazione 06:45',ali:'Porridge 100g, Banana 2, Miele 30g, Burro arachidi 20g',p:18,c:110,f:15},
-      {nome:'Snack 10:30',ali:'Barretta energetica, Datteri 3',p:5,c:40,f:2},
-      {nome:'Pranzo 13:00',ali:'Pasta 120g, Ragù magro 100g, Parmigiano 20g',p:40,c:95,f:15},
-      {nome:'Cena 20:30',ali:'Riso 100g, Pollo 180g, Patate 200g, Olio 15g',p:50,c:90,f:18}
-    ]},
-    pregara:{kcal:2200,pasti:[
-      {nome:'Colazione 06:45',ali:'Pane bianco 100g, Marmellata 40g, Banana 1',p:8,c:95,f:2},
-      {nome:'Snack 10:30',ali:'Gel energetico, Acqua',p:0,c:25,f:0},
-      {nome:'Pranzo 13:00',ali:'Riso bianco 120g, Petto pollo 100g, Zucchine',p:35,c:95,f:5},
-      {nome:'Cena 20:30',ali:'Pasta 100g, Olio 10g, Parmigiano 15g',p:18,c:80,f:12}
-    ]}
-  };
-  const d = diete[sc];
-  document.getElementById('dietaContent').innerHTML = d.pasti.map(p=>`
-    <div class="meal"><h4>${p.nome}</h4><div>${p.ali}</div>
-    <div class="macros"><span>P: ${p.p}g</span><span>C: ${p.c}g</span><span>F: ${p.f}g</span></div></div>
-  `).join('') + `<div class="metric" style="text-align:center;margin-top:20px">Totale: ${d.kcal} kcal</div>`;
+function saveProfilo(){
+hmc4_p = {eta:parseInt(document.getElementById('p_eta').value),peso:parseFloat(document.getElementById('p_peso').value),altezza:parseInt(document.getElementById('p_altezza').value),fc_riposo:parseInt(document.getElementById('p_fc_riposo').value),fc_max:parseInt(document.getElementById('p_fc_max').value),vo2max:hmc4_p.vo2max,km_sett:hmc4_p.km_sett,forma:hmc4_p.forma,gara:document.getElementById('p_gara').value,obiettivo:document.getElementById('p_obiettivo').value};
+localStorage.setItem('hmc4_p', JSON.stringify(hmc4_p));
+alert('✅ Profilo salvato! Tutto ricalcolato.'); renderDashboard();
 }
-
-function saveProfilo() {
-  hmc4_p = {
-    eta:parseInt(document.getElementById('p_eta').value),
-    peso:parseFloat(document.getElementById('p_peso').value),
-    altezza:parseInt(document.getElementById('p_altezza').value),
-    fc_riposo:parseInt(document.getElementById('p_fc_riposo').value),
-    fc_max:parseInt(document.getElementById('p_fc_max').value),
-    vo2max:hmc4_p.vo2max, km_sett:hmc4_p.km_sett, forma:hmc4_p.forma,
-    gara:document.getElementById('p_gara').value,
-    obiettivo:document.getElementById('p_obiettivo').value
-  };
-  localStorage.setItem('hmc4_p', JSON.stringify(hmc4_p));
-  alert('✅ Profilo salvato! Tutto ricalcolato.'); renderDashboard();
+async function sendToCoach(){
+const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
+addMsg(msg,'user'); input.value='';
+const context = `Sei il coach di Matteo, 47 anni, ${hmc4_p.peso}kg, VO2max ${hmc4_p.vo2max}, obiettivo HM ${hmc4_p.obiettivo} il ${hmc4_p.gara}. FC riposo ${hmc4_p.fc_riposo}, FC max ${hmc4_p.fc_max}. Zone: Z2 ${karvonen(0.6)}-${karvonen(0.7)}, Z3 ${karvonen(0.7)}-${karvonen(0.8)}, Z4 ${karvonen(0.8)}-${karvonen(0.9)}. Ultimi allenamenti: ${hmc4_w.slice(-3).map(w=>`${w.data} ${w.tipo} ${w.km}km`).join(', ')}. Rispondi breve e pratico.`;
+try {
+const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_KEY}`, {method:'POST', headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:context+'\n\nDomanda: '+msg}]}]})});
+const data = await res.json();
+addMsg(data.candidates[0].content.parts[0].text,'ai');
+} catch(e) {addMsg('Errore connessione AI. Riprova.','ai');}
 }
-
-// === COACH AI ===
-async function sendToCoach() {
-  const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
-  addMsg(msg,'user'); input.value='';
-  const context = `Sei il coach di Matteo, 47 anni, ${hmc4_p.peso}kg, VO2max ${hmc4_p.vo2max}, obiettivo HM ${hmc4_p.obiettivo} il ${hmc4_p.gara}. FC riposo ${hmc4_p.fc_riposo}, FC max ${hmc4_p.fc_max}. Zone: Z2 ${karvonen(0.6)}-${karvonen(0.7)}, Z3 ${karvonen(0.7)}-${karvonen(0.8)}, Z4 ${karvonen(0.8)}-${karvonen(0.9)}. Ultimi allenamenti: ${hmc4_w.slice(-3).map(w=>`${w.data} ${w.tipo} ${w.km}km`).join(', ')}. Rispondi breve e pratico.`;
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_KEY}`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:context+'\n\nDomanda: '+msg}]}]})
-    });
-    const data = await res.json();
-    addMsg(data.candidates[0].content.parts[0].text,'ai');
-  } catch(e) {addMsg('Errore connessione AI. Riprova.','ai');}
+function addMsg(text,who){
+const box = document.getElementById('chatBox');
+box.innerHTML += `<div class="msg ${who}">${text}</div>`;
+box.scrollTop = box.scrollHeight;
 }
-
-function addMsg(text,who) {
-  const box = document.getElementById('chat
+function quickAsk(tipo){
+const domande = {infortunio:'Ho un dolore/fastidio. Come gestisco gli allenamenti questa settimana?',malanno:'Ho raffreddore/influenza. Posso allenarmi?',stanchezza:'Mi sento stanco, FC a riposo alta. Cosa faccio?',saltata:'Ho saltato la sessione di ieri. La recupero?',gara:'Strategia di gara per 1h35. Come gestisco i primi km?',nutrizione:'Cosa mangio nei 3 giorni pre-gara e mattina della gara?'};
+document.getElementById('chatInput').value = domande[tipo]; sendToCoach();
+}
+renderDashboard();
+if(hmc4_s.length===0){hmc4_s = [{nome:'Nike Pegasus',tipo:'A3',kmMax:800,kmPercorsi:320,attiva:true}];localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));}
+</script>
+</body>
+</html>
