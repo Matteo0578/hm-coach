@@ -186,7 +186,7 @@ let hmc4_p = JSON.parse(localStorage.getItem('hmc4_p') || JSON.stringify({
 let hmc4_s = JSON.parse(localStorage.getItem('hmc4_s') || '[]');
 let hmc4_w = JSON.parse(localStorage.getItem('hmc4_w') || '[]');
 
-// === SYNC FUNZIONI PRINCIPALI ===
+// === SYNC ===
 function syncToSheet() {
   const payload = JSON.stringify({profilo: hmc4_p, scarpe: hmc4_s, diario: hmc4_w.slice(-50)});
   if (!document.getElementById('sync_iframe')) {
@@ -221,11 +221,8 @@ function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  
-  // Fix: trova il bottone giusto senza usare event.target
   const btn = document.querySelector(`.tab[onclick="showTab('${id}')"]`);
   if(btn) btn.classList.add('active');
-  
   if(id==='dashboard') renderDashboard();
   if(id==='piano') renderPiano();
   if(id==='diario') renderDiario();
@@ -243,7 +240,6 @@ function renderDashboard() {
   document.getElementById('fc_riposo').textContent = hmc4_p.fc_riposo;
   document.getElementById('km_sett').textContent = hmc4_p.km_sett;
   document.getElementById('forma').textContent = hmc4_p.forma;
-
   const zones = [
     {name:'Z1 Recupero',min:karvonen(0.5),max:karvonen(0.6),class:'z1'},
     {name:'Z2 Fondo',min:karvonen(0.6),max:karvonen(0.7),class:'z2'},
@@ -251,173 +247,4 @@ function renderDashboard() {
     {name:'Z4 Soglia',min:karvonen(0.8),max:karvonen(0.9),class:'z4'},
     {name:'Z5 VO2max',min:karvonen(0.9),max:hmc4_p.fc_max,class:'z5'}
   ];
-  document.getElementById('zoneDisplay').innerHTML = zones.map(z =>
-    `<div class="zone-bar"><div class="zone ${z.class}" style="width:100%">${z.name}: ${z.min}-${z.max} bpm</div></div>`
-  ).join('');
-
-  new Chart(document.getElementById('chartForma'), {
-    type:'line',data:{labels:['8w fa','6w fa','4w fa','2w fa','Oggi'],
-    datasets:[{label:'Forma %',data:[65,70,75,80,hmc4_p.forma],borderColor:'#3b82f6',tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
-
-  new Chart(document.getElementById('chartVo2'), {
-    type:'line',data:{labels:['Inizio','4w','8w','Oggi'],
-    datasets:[{label:'VO₂max',data:[52,54,56,hmc4_p.vo2max],borderColor:'#10b981',tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
-}
-
-function renderPiano() {
-  const start = new Date('2026-05-04');
-  const weeks = ['Base','Base','Sviluppo','Sviluppo','Sviluppo','Sviluppo','Picco','Picco','Picco','Taper','Taper','Gara'];
-  let html = '<table><tr><th>Settimana</th><th>Periodo</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Gio</th><th>Ven</th><th>Sab</th><th>Dom</th></tr>';
-  for(let w=0;w<12;w++) {
-    const d = new Date(start); d.setDate(d.getDate() + w*7);
-    html += `<tr><td>W${w+1}</td><td>${weeks[w]}</td><td>Riposo</td><td>CL 10k 4:50</td><td>Ripetute</td><td>CL 8k</td><td>Riposo</td><td>Medio 12k 4:35</td><td>Lungo ${w<8?20+w*2:32}k 5:30</td></tr>`;
-  }
-  document.getElementById('pianoContent').innerHTML = html + '</table>';
-}
-
-function renderDiario() {
-  const opts = hmc4_s.map(s=>`<option>${s.nome}</option>`).join('');
-  document.getElementById('w_scarpa').innerHTML = opts;
-  document.getElementById('diarioList').innerHTML = '<table><tr><th>Data</th><th>Tipo</th><th>Km</th><th>Passo</th><th>FC</th><th>RPE</th><th></th></tr>' +
-    hmc4_w.slice(-20).reverse().map((w,i)=>`<tr><td>${w.data}</td><td>${w.tipo}</td><td>${w.km}</td><td>${w.passo}</td><td>${w.fc}</td><td>${w.rpe}</td><td><button class="danger" onclick="delWorkout(${hmc4_w.length-1-i})">X</button></td></tr>`).join('') + '</table>';
-
-  if(hmc4_w.length>0) {
-    new Chart(document.getElementById('chartPasso'), {
-      type:'line',data:{labels:hmc4_w.slice(-10).map(w=>w.data),
-      datasets:[{label:'Passo min/km',data:hmc4_w.slice(-10).map(w=>{const[p,s]=w.passo.split(':');return parseInt(p)+parseInt(s)/60}),borderColor:'#f59e0b',tension:.4}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{reverse:true,ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-    });
-  }
-}
-
-function addWorkout() {
-  hmc4_w.push({
-    data:document.getElementById('w_data').value,
-    tipo:document.getElementById('w_tipo').value,
-    km:document.getElementById('w_km').value,
-    passo:document.getElementById('w_passo').value,
-    fc:document.getElementById('w_fc').value,
-    rpe:document.getElementById('w_rpe').value,
-    scarpa:document.getElementById('w_scarpa').value
-  });
-  localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w));
-  const scarpa = hmc4_s.find(s=>s.nome===document.getElementById('w_scarpa').value);
-  if(scarpa) {scarpa.kmPercorsi = (parseFloat(scarpa.kmPercorsi)||0) + parseFloat(document.getElementById('w_km').value); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));}
-  renderDiario(); renderScarpe();
-}
-
-function delWorkout(i) {hmc4_w.splice(i,1); localStorage.setItem('hmc4_w', JSON.stringify(hmc4_w)); renderDiario();}
-
-function renderGara() {
-  const gara = new Date(hmc4_p.gara); const oggi = new Date();
-  const giorni = Math.ceil((gara - oggi)/(1000*60*60*24));
-  document.getElementById('countdown').textContent = giorni + ' giorni';
-  document.getElementById('countdown-header').textContent = giorni + 'g';
-  document.getElementById('fc_gara').textContent = karvonen(0.88);
-
-  let strat = '<table><tr><th>Km</th><th>Passo</th><th>FC Target</th><th>Note</th></tr>';
-  for(let k=1;k<=21;k++) {
-    let pace='4:30', fc=karvonen(0.85), note='Ritmo gara';
-    if(k<=3) {pace='4:35';fc=karvonen(0.82);note='Partenza controllata';}
-    if(k>=18) {pace='4:25';fc=karvonen(0.90);note='Finale tutto';}
-    strat += `<tr><td>${k}</td><td>${pace}</td><td>${fc}</td><td>${note}</td></tr>`;
-  }
-  document.getElementById('strategiaGara').innerHTML = strat + '</table>';
-
-  new Chart(document.getElementById('chartPrevisione'), {
-    type:'bar',data:{labels:['10k','HM','30k','Maratona'],
-    datasets:[{label:'Tempo Previsto',data:[41.5,95,145,210],backgroundColor:'#3b82f6'}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{y:{ticks:{color:'#94a3b8'}},x:{ticks:{color:'#94a3b8'}}}}
-  });
-}
-
-function renderScarpe() {
-  document.getElementById('scarpeList').innerHTML = hmc4_s.map((s,i)=>{
-    const perc = Math.min(100,(s.kmPercorsi/s.kmMax)*100);
-    const col = perc<70?'green':perc<90?'orange':'red';
-    return `<div class="card"><h4>${s.nome} - ${s.tipo}</h4>
-      <div class="shoe-bar"><div class="shoe-fill ${col}" style="width:${perc}%">${s.kmPercorsi}/${s.kmMax} km</div></div>
-      <button onclick="editShoe(${i})">Modifica</button><button class="danger" onclick="delShoe(${i})">Elimina</button></div>`;
-  }).join('');
-}
-
-function showAddShoe() {
-  const nome = prompt('Nome scarpa:'); if(!nome) return;
-  const tipo = prompt('Tipo (A1/A2/A3):'); const kmMax = prompt('Km max:');
-  hmc4_s.push({nome,tipo,kmMax:parseInt(kmMax),kmPercorsi:0,attiva:true});
-  localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();
-}
-
-function editShoe(i) {
-  const km = prompt('Km percorsi:', hmc4_s[i].kmPercorsi);
-  if(km!==null) {hmc4_s[i].kmPercorsi=parseFloat(km); localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s)); renderScarpe();}
-}
-
-function delShoe(i) {if(confirm('Elimina?')){hmc4_s.splice(i,1);localStorage.setItem('hmc4_s', JSON.stringify(hmc4_s));renderScarpe();}}
-
-function renderDieta() {
-  const sc = document.getElementById('dietaScenario').value;
-  const diete = {
-    allenamento:{kcal:2100,pasti:[
-      {nome:'Colazione 06:45',ali:'Avena 80g, Banana 1, Miele 20g, Mandorle 20g, Caffè',p:15,c:85,f:12},
-      {nome:'Snack 10:30',ali:'Yogurt greco 200g, Mirtilli 100g',p:20,c:15,f:0},
-      {nome:'Pranzo 13:00',ali:'Riso 100g, Pollo 150g, Verdure 200g, Olio 10g',p:45,c:80,f:12},
-      {nome:'Cena 20:30',ali:'Pasta 80g, Tonno 100g, Pomodoro, Olio 10g',p:35,c:65,f:12}
-    ]},
-    riposo:{kcal:1850,pasti:[
-      {nome:'Colazione 06:45',ali:'Pane integrale 60g, Uova 2, Avocado 50g',p:18,c:35,f:20},
-      {nome:'Snack 10:30',ali:'Mela 1, Noci 20g',p:3,c:25,f:12},
-      {nome:'Pranzo 13:00',ali:'Quinoa 80g, Salmone 120g, Broccoli 200g',p:35,c:55,f:15},
-      {nome:'Cena 20:30',ali:'Zuppa legumi 300g, Pane 40g, Olio 5g',p:20,c:60,f:8}
-    ]},
-    lungo:{kcal:2400,pasti:[
-      {nome:'Colazione 06:45',ali:'Porridge 100g, Banana 2, Miele 30g, Burro arachidi 20g',p:18,c:110,f:15},
-      {nome:'Snack 10:30',ali:'Barretta energetica, Datteri 3',p:5,c:40,f:2},
-      {nome:'Pranzo 13:00',ali:'Pasta 120g, Ragù magro 100g, Parmigiano 20g',p:40,c:95,f:15},
-      {nome:'Cena 20:30',ali:'Riso 100g, Pollo 180g, Patate 200g, Olio 15g',p:50,c:90,f:18}
-    ]},
-    pregara:{kcal:2200,pasti:[
-      {nome:'Colazione 06:45',ali:'Pane bianco 100g, Marmellata 40g, Banana 1',p:8,c:95,f:2},
-      {nome:'Snack 10:30',ali:'Gel energetico, Acqua',p:0,c:25,f:0},
-      {nome:'Pranzo 13:00',ali:'Riso bianco 120g, Petto pollo 100g, Zucchine',p:35,c:95,f:5},
-      {nome:'Cena 20:30',ali:'Pasta 100g, Olio 10g, Parmigiano 15g',p:18,c:80,f:12}
-    ]}
-  };
-  const d = diete[sc];
-  document.getElementById('dietaContent').innerHTML = d.pasti.map(p=>`
-    <div class="meal"><h4>${p.nome}</h4><div>${p.ali}</div>
-    <div class="macros"><span>P: ${p.p}g</span><span>C: ${p.c}g</span><span>F: ${p.f}g</span></div></div>
-  `).join('') + `<div class="metric" style="text-align:center;margin-top:20px">Totale: ${d.kcal} kcal</div>`;
-}
-
-function saveProfilo() {
-  hmc4_p = {
-    eta:parseInt(document.getElementById('p_eta').value),
-    peso:parseFloat(document.getElementById('p_peso').value),
-    altezza:parseInt(document.getElementById('p_altezza').value),
-    fc_riposo:parseInt(document.getElementById('p_fc_riposo').value),
-    fc_max:parseInt(document.getElementById('p_fc_max').value),
-    vo2max:hmc4_p.vo2max, km_sett:hmc4_p.km_sett, forma:hmc4_p.forma,
-    gara:document.getElementById('p_gara').value,
-    obiettivo:document.getElementById('p_obiettivo').value
-  };
-  localStorage.setItem('hmc4_p', JSON.stringify(hmc4_p));
-  alert('✅ Profilo salvato! Tutto ricalcolato.'); renderDashboard();
-}
-
-// === COACH AI ===
-async function sendToCoach() {
-  const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
-  addMsg(msg,'user'); input.value='';
-  const context = `Sei il coach di Matteo, 47 anni, ${hmc4_p.peso}kg, VO2max ${hmc4_p.vo2max}, obiettivo HM ${hmc4_p.obiettivo} il ${hmc4_p.gara}. FC riposo ${hmc4_p.fc_riposo}, FC max ${hmc4_p.fc_max}. Zone: Z2 ${karvonen(0.6)}-${karvonen(0.7)}, Z3 ${karvonen(0.7)}-${karvonen(0.8)}, Z4 ${karvonen(0.8)}-${karvonen(0.9)}. Ultimi allenamenti: ${hmc4_w.slice(-3).map(w=>`${w.data} ${w.tipo} ${w.km}km`).join(', ')}. Rispondi breve e pratico.`;
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_KEY}`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:context+'\n\nDomanda: '+msg}]}]})
-    });
-    const data = await res.json();
-    addMsg(data.candidates[0].
+  document.getElementBy
