@@ -271,7 +271,7 @@ const input = document.getElementById('chatInput'); const msg = input.value.trim
 addMsg(msg,'user'); input.value='';
 const context = `Sei il coach di Matteo, 47 anni, ${hmc4_p.peso}kg, VO2max ${hmc4_p.vo2max}, obiettivo HM ${hmc4_p.obiettivo} il ${hmc4_p.gara}. FC riposo ${hmc4_p.fc_riposo}, FC max ${hmc4_p.fc_max}. Zone: Z2 ${karvonen(0.6)}-${karvonen(0.7)}, Z3 ${karvonen(0.7)}-${karvonen(0.8)}, Z4 ${karvonen(0.8)}-${karvonen(0.9)}. Ultimi allenamenti: ${hmc4_w.slice(-3).map(w=>`${w.data} ${w.tipo} ${w.km}km`).join(', ')}. Rispondi breve e pratico.`;
 try {
-const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_KEY}`, {method:'POST', headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:context+'\n\nDomanda: '+msg}]}]})});
+const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${'AIzaSyC4vi7FYWgLWrv3t_vc175IE__EQ_wCxDw'}`, {method:'POST', headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:context+'\n\nDomanda: '+msg}]}]})});
 const data = await res.json();
 addMsg(data.candidates[0].content.parts[0].text,'ai');
 } catch(e) {addMsg('Errore connessione AI. Controlla la chiave API o la connessione.','ai');}
